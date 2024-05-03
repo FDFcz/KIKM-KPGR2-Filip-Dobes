@@ -71,6 +71,8 @@ public class Cube extends Solid {
                 Color.pink,
                 Color.pink
         );
+
+        partBuffer.add(new Part(TopologyType.TRIANGLES,0,12));
     }
     @Override
     public Color getColor(int index) {

@@ -101,6 +101,7 @@ public class House extends Solid {
                 Color.MAGENTA,
                 Color.MAGENTA
         );
+        partBuffer.add(new Part(TopologyType.TRIANGLES,0,20));
     }
     @Override
     public Color getColor(int index) {

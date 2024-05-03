@@ -44,6 +44,8 @@ public class Pyramid extends Solid{
                 Color.MAGENTA,
                 Color.CYAN
         );
+
+        partBuffer.add(new Part(TopologyType.TRIANGLES,0,6));
     }
     @Override
     public Color getColor(int index) {
