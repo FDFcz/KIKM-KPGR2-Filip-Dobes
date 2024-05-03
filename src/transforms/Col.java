@@ -1,7 +1,5 @@
 package transforms;
 
-import raster.Interpolative;
-
 import java.util.Locale;
 import java.util.Objects;
 
@@ -12,7 +10,7 @@ import java.util.Objects;
  * @version 2016
  */
 
-public class Col{
+public class Col {
 
     private final double r, g, b, a;
 

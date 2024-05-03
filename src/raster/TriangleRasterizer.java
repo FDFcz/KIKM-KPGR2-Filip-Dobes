@@ -65,24 +65,15 @@ public class TriangleRasterizer extends ObjectRasterizer {
         for (int y = yA; y <= yB; y++) {
             // V1
             double t1 = (y - yA) / (double) (yB - yA);
-
-            Vertex v1 = a.mul(1-t1).add(b.mul(t1));
-            int x1 = (int) v1.getPosition().getX();
-            x1 = (int) Math.round((1 - t1) * xA + t1 * xB);
-            double z1 = v1.getPosition().getZ();
-            z1 = (1 - t1) * zA + t1 * zB;
-            Col col1 = v1.getColor();
-            col1 = a.getColor().mul(1 - t1).add(b.getColor().mul(t1));
+            int x1 = (int) Math.round((1 - t1) * xA + t1 * xB);
+            double z1 = (1 - t1) * zA + t1 * zB;
+            Col col1 = a.getColor().mul(1 - t1).add(b.getColor().mul(t1));
 
             // V2
             double t2 = (y - yA) / (double) (yC - yA);
-            Vertex v2 = a.mul(1-t2).add(c.mul(t2));
-            int x2 = (int) v2.getPosition().getX();
-            x2 = (int) Math.round((1 - t2) * xA + t2 * xC);
-            double z2 = v2.getPosition().getZ();
-            z2 = (1 - t2) * zA + t2 * zC;
-            Col col2 = v2.getColor();
-            col2 = a.getColor().mul(1 - t2).add(c.getColor().mul(t2));
+            int x2 = (int) Math.round((1 - t2) * xA + t2 * xC);
+            double z2 = (1 - t2) * zA + t2 * zC;
+            Col col2 = a.getColor().mul(1 - t2).add(c.getColor().mul(t2));
 
 
             // TODO: kontrola, jestli x1 < x2

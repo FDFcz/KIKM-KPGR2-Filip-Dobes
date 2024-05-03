@@ -16,7 +16,8 @@ import java.awt.event.*;
 public class Controller3D implements Controller {
 
     private final Panel panel;
-    private boolean isOn = true;
+
+    //private LineRasterizer rasterizer;
 
     private Camera camera;
     //private Mat4 projOrtogonal;
@@ -236,6 +237,7 @@ public class Controller3D implements Controller {
                 else if (e.getKeyCode() == KeyEvent.VK_9) {
                     //isOrtogonal = !isOrtogonal;
                 }
+                //update();
             }
         });
 
@@ -257,25 +259,24 @@ public class Controller3D implements Controller {
     private void update() {
         panel.clear();
 
-        if (isOn) {
-            render.setProj(projPrespective);
-            render.setView(camera.getViewMatrix());
+        render.setProj(projPrespective);
+        render.setView(camera.getViewMatrix());
 
-            render.render(cube);
-            render.render(pyramid);
-            render.render(house);
-            //render.render(plane);
 
-            //render.render(pointZero);
+        render.render(cube);
+        render.render(pyramid);
+        render.render(house);
+        //render.render(plane);
+
+        //render.render(pointZero);
         /*
         //show Camera cordinations
         rasterizer.rasterize(2,2,40,2,Color.RED); //camera compass X R
         rasterizer.rasterize(2,2,2,40,Color.GREEN); //camera compass Y G
         rasterizer.rasterize(2,2,20,20,Color.BLUE); //camera compass Z B
          */
-            zBuffer.setDefaultValues();
-            panel.repaint();
-        }
+        zBuffer.setDefaultValues();
+        panel.repaint();
     }
 
     private void redraw() {
