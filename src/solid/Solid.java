@@ -11,20 +11,10 @@ import java.util.Arrays;
 public abstract class Solid {
 
     protected  final ArrayList<Part> partBuffer = new ArrayList<>();
-    protected  final ArrayList<Vertex> vertexBuffer = new ArrayList<>();
-    protected  final ArrayList<Integer> indexBuffer = new ArrayList<>();
-
     public ArrayList<Part> getPartBuffer() {
         return partBuffer;
     }
 
-    public ArrayList<Vertex> getVertexBuffer() {
-        return vertexBuffer;
-    }
-
-    public ArrayList<Integer> getIndexBuffer() {
-        return indexBuffer;
-    }
     //------------------------------------------------------------------------------
     protected ArrayList<Point3D> vb = new ArrayList<>();
     protected ArrayList<Integer> ib = new ArrayList<>();
@@ -57,10 +47,6 @@ public abstract class Solid {
 
     public ArrayList<Integer> getIb() {
         return ib;
-    }
-    public ArrayList<Integer> getSb(){return sb;}
-    public Color getSurfaceColor(int i){
-        return sc.get(i);
     }
 
     public Mat4 getModel() {return model;}

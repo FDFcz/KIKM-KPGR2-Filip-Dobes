@@ -31,6 +31,7 @@ public class Controller3D implements Controller {
     Solid pointZero = new Point();
     Solid house = new House();
     Solid plane = new Plane();
+    Solid arrow = new Arrow();
 
     Solid[] solids = new Solid [3];
     int selectedSolidID =0;
@@ -58,8 +59,12 @@ public class Controller3D implements Controller {
         solids[1] = pyramid;
         solids[2] = cube;
 
-        cube.setPos(new Mat4Transl(0,0,0));
-        cube.setRot(new Mat4RotXYZ(0,0,1));
+        arrow.setPos(new Mat4Transl(0,0,0));
+        //arrow.setRot(new Mat4RotXYZ(1,0,1));
+        arrow.setScale(new Mat4Scale(3,3,3));
+
+        cube.setPos(new Mat4Transl(0,-10,0));
+        cube.setRot(new Mat4RotXYZ(0,0,2));
         cube.setScale(new Mat4Scale(5,5,5));
 
         plane.setPos(new Mat4Transl(0,0,0));
@@ -72,7 +77,7 @@ public class Controller3D implements Controller {
         house.setScale(new Mat4Scale(15,15,15));
         house.setColor(Color.BLUE);
 
-        pyramid.setPos(new Mat4Transl(70,0,0));
+        pyramid.setPos(new Mat4Transl(70,0,10));
         pyramid.setRot(new Mat4RotXYZ(1,0,1));
         pyramid.setScale(new Mat4Scale(10,10,10));
 
@@ -188,9 +193,9 @@ public class Controller3D implements Controller {
                 } else if (e.getKeyCode() == KeyEvent.VK_S) {
                     camera = camera.backward(0.5);
                 } else if (e.getKeyCode() == KeyEvent.VK_C) {
-                    camera = camera.move(new Vec3D(0,0,0.5));
-                } else if (e.getKeyCode() == KeyEvent.VK_SPACE) {
                     camera = camera.move(new Vec3D(0,0,-0.5));
+                } else if (e.getKeyCode() == KeyEvent.VK_SPACE) {
+                    camera = camera.move(new Vec3D(0,0,0.5));
                 }
 
                 //Solids movement
@@ -266,15 +271,14 @@ public class Controller3D implements Controller {
         render.render(cube);
         render.render(pyramid);
         render.render(house);
+        render.render(arrow);
         //render.render(plane);
 
         //render.render(pointZero);
-        /*
         //show Camera cordinations
-        rasterizer.rasterize(2,2,40,2,Color.RED); //camera compass X R
-        rasterizer.rasterize(2,2,2,40,Color.GREEN); //camera compass Y G
-        rasterizer.rasterize(2,2,20,20,Color.BLUE); //camera compass Z B
-         */
+        //rasterizer.rasterize(2,2,40,2,Color.RED); //camera compass X R
+        //rasterizer.rasterize(2,2,2,40,Color.GREEN); //camera compass Y G
+        //rasterizer.rasterize(2,2,20,20,Color.BLUE); //camera compass Z B
         zBuffer.setDefaultValues();
         panel.repaint();
     }
