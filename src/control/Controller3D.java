@@ -20,8 +20,11 @@ public class Controller3D implements Controller {
     //private LineRasterizer rasterizer;
 
     private Camera camera;
-    //private Mat4 projOrtogonal;
+    private Mat4 projOrtogonal;
     private Mat4 projPrespective;
+
+    private Boolean isOrtogonal = false;
+    private  Boolean is3Dscene=false;
 
     float mouseX,mouseY;
     //float lastDeltaTime;
@@ -67,9 +70,9 @@ public class Controller3D implements Controller {
         cube.setRot(new Mat4RotXYZ(0,0,2));
         cube.setScale(new Mat4Scale(5,5,5));
 
-        plane.setPos(new Mat4Transl(0,0,0));
+        plane.setPos(new Mat4Transl(10,0,-8));
         plane.setRot(new Mat4RotXYZ(0,0,0));
-        plane.setScale(new Mat4Scale(10,10,10));
+        plane.setScale(new Mat4Scale(60,60,60));
 
         house.setPos(new Mat4Transl(0,12,0));
         house.setRot(new Mat4Rot(1,0,new Vec3D(1,0,0)));
@@ -99,10 +102,15 @@ public class Controller3D implements Controller {
                 0.1,
                 200
         );
+        projOrtogonal = new Mat4OrthoRH(80,60,0.1,200);
+
 
         camera = camera.backward(53);
         //camera = camera.right(26);
         //camera = camera.down(12);
+        render.setProj(projPrespective);
+
+        redraw();
     }
 
     @Override
@@ -157,7 +165,7 @@ public class Controller3D implements Controller {
         panel.addMouseMotionListener(new MouseAdapter() {
             @Override
             public void mouseDragged(MouseEvent e) {
-                if (e.isControlDown()) return;
+                if (e.isControlDown() || !is3Dscene) return;
                 float deltaX = (e.getX()-mouseX)/50;
                 float deltaY = (e.getY()-mouseY)/50;
                 if (e.isShiftDown()) {
@@ -237,10 +245,13 @@ public class Controller3D implements Controller {
                     solids[2].setColor(Color.BLUE);
                 }
                 else if (e.getKeyCode() == KeyEvent.VK_0) {
-                    //update();
+                    is3Dscene = !is3Dscene;
+                    if(!is3Dscene) redraw();
                 }
                 else if (e.getKeyCode() == KeyEvent.VK_9) {
-                    //isOrtogonal = !isOrtogonal;
+                    isOrtogonal = !isOrtogonal;
+                    if (isOrtogonal) render.setProj(projOrtogonal);
+                    else render.setProj(projPrespective);
                 }
                 //update();
             }
@@ -256,15 +267,17 @@ public class Controller3D implements Controller {
     }
     public void update(float deltaTime)
     {
-        if(selectedSolidID!=1) pyramid.addRot(new Mat4RotXYZ(deltaTime,0,0));
-        if(selectedSolidID!=2) cube.addRot(new Mat4RotXYZ(deltaTime,0,0));
+        if (selectedSolidID != 1) pyramid.addRot(new Mat4RotXYZ(deltaTime, 0, 0));
+        if (selectedSolidID != 2) cube.addRot(new Mat4RotXYZ(deltaTime, 0, 0));
+
         //lastDeltaTime = deltaTime;
         update();
     }
     private void update() {
+        if(!is3Dscene)return;
         panel.clear();
 
-        render.setProj(projPrespective);
+        //render.setProj(projPrespective);
         render.setView(camera.getViewMatrix());
 
 
